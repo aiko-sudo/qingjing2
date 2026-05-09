@@ -13,8 +13,10 @@
     <link rel="dns-prefetch" href="fonts.googleapis.com">
     <!-- 性能优化：预连接，提前建立连接 -->
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="modern-overrides.css">
+    <link rel="stylesheet" href="styles.css?v=3">
+    <link rel="stylesheet" href="modern-overrides.css?v=3">
+    <!-- html2canvas for saving badge -->
+    <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
 </head>
 <body>
     <!-- 动态极光/星空背景 -->
@@ -156,6 +158,9 @@
                     </div>
 
                     <div class="action-buttons">
+                        <button id="saveBadgeBtn" class="btn-primary" role="button" tabindex="0" aria-label="保存徽章" onclick="saveBadge()">
+                            ⬇️ 保存徽章
+                        </button>
                         <button id="shareBtn" class="btn-primary" role="button" tabindex="0" aria-label="分享结果">
                             🔗 分享结果
                         </button>
@@ -174,6 +179,7 @@
     </div>
 
     <!-- 先加载题库和动物数据 -->
+    <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
     <script src="questions.js"></script>
     <script src="animals.js"></script>
     <script src="app.js"></script>

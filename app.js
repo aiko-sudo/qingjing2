@@ -668,3 +668,31 @@ function setupLazyLoading() {
         });
     }
 }
+
+// ========================================
+// 徽章下载功能
+// ========================================
+window.saveBadge = function() {
+    const resultCard = document.querySelector('.result-card');
+    const actionButtons = document.querySelector('.action-buttons');
+    if (actionButtons) actionButtons.style.display = 'none';
+    
+    html2canvas(resultCard, {
+        scale: 2,
+        backgroundColor: '#f8f9fa',
+        useCORS: true,
+        logging: false
+    }).then(canvas => {
+        if (actionButtons) actionButtons.style.display = 'flex';
+        const link = document.createElement('a');
+        const animalName = document.getElementById('animalName').textContent || '测试结果';
+        link.download = `三江源动物图腾-${animalName}.png`;
+        link.href = canvas.toDataURL('image/png');
+        link.click();
+        if(typeof triggerHapticFeedback === 'function') triggerHapticFeedback('success');
+    }).catch(err => {
+        if (actionButtons) actionButtons.style.display = 'flex';
+        console.error('生成徽章失败:', err);
+        alert('生成徽章失败，请稍后重试。');
+    });
+};

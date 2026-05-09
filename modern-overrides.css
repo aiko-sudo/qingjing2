@@ -346,3 +346,130 @@ body {
 .wildlife-notice p:first-child {
     color: #00f2fe;
 }
+
+/* ========================================
+   结果页排版优化
+   ======================================== */
+
+/* 雷达图标签单行显示 */
+.radar-labels {
+    flex-wrap: nowrap !important;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    justify-content: flex-start !important;
+    padding-bottom: 8px;
+    white-space: nowrap;
+    /* 隐藏滚动条 */
+    scrollbar-width: none;
+}
+.radar-labels::-webkit-scrollbar {
+    display: none;
+}
+.radar-labels span {
+    flex-shrink: 0;
+}
+
+/* 解读区域精美圆角方框 */
+.description-container,
+.strategy-container,
+.background-container,
+.match-container,
+.tips-container {
+    background: rgba(255, 255, 255, 0.4);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    border-radius: 20px;
+    padding: 24px;
+    margin-bottom: 24px;
+    text-align: left;
+    box-shadow: inset 0 2px 4px rgba(255, 255, 255, 0.8), 0 8px 24px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.description-container:hover,
+.strategy-container:hover,
+.background-container:hover,
+.match-container:hover,
+.tips-container:hover {
+    transform: translateY(-2px);
+    box-shadow: inset 0 2px 4px rgba(255, 255, 255, 0.9), 0 12px 32px rgba(0, 0, 0, 0.08);
+}
+
+.description-container h4,
+.strategy-container h4,
+.background-container h4,
+.match-container h4,
+.tips-container h4 {
+    margin-top: 0;
+    margin-bottom: 16px;
+    font-size: 18px;
+    color: var(--text-primary);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    padding-bottom: 12px;
+    position: relative;
+    display: inline-block;
+}
+
+.description-container h4::after,
+.strategy-container h4::after,
+.background-container h4::after,
+.match-container h4::after,
+.tips-container h4::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    width: 30px;
+    height: 3px;
+    background: linear-gradient(90deg, var(--aurora-1), var(--neon-blue));
+    border-radius: 3px;
+}
+
+.description-text,
+.strategy-text,
+.background-text,
+.match-text,
+.tips-text {
+    margin-bottom: 0 !important;
+}
+
+/* 翻页按钮样式优化 */
+.navigation {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 30px;
+}
+
+.navigation .btn-secondary {
+    background: #ffffff !important; 
+    border: 1.5px solid #a4bcdf !important;
+    color: #86a0c5 !important;
+    border-radius: 50px !important;
+    padding: 12px 32px !important;
+    font-size: 16px !important;
+    font-weight: 500 !important;
+    box-shadow: none !important;
+    transition: all 0.3s ease !important;
+    min-width: 140px !important;
+    width: auto !important; /* 强制覆盖全局 100% 宽度 */
+    flex: 0 0 auto !important; /* 强制不撑满 flex 容器 */
+    margin: 0 !important;
+}
+
+.navigation .btn-secondary:hover:not(:disabled) {
+    background: #f4f7fb;
+    color: #5c7fa8;
+    border-color: #5c7fa8;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(106, 141, 182, 0.15);
+}
+
+.navigation .btn-secondary:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    background: transparent;
+    border-color: #cbd5e1;
+    color: #94a3b8;
+}
