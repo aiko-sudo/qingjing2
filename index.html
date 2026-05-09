@@ -8,16 +8,12 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <title>三江源动物性格测试 - 寻找你的高原图腾</title>
-    <meta name="description" content="基于大五人格理论的高原动物性格测试，探索你的内心野性原型">
+    <meta name="description" content="基于MBTI 16型人格的高原动物性格测试，探索你内心深处的野性原型">
     <!-- 性能优化：DNS预解析 -->
     <link rel="dns-prefetch" href="fonts.googleapis.com">
     <!-- 性能优化：预连接，提前建立连接 -->
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="styles.css">
-
-
-
-
 </head>
 <body>
     <!-- 页面容器 -->
@@ -35,7 +31,7 @@
                     <h1>动物性格测试</h1>
                     <p class="tagline">寻找你的高原图腾</p>
                     <p class="description">
-                        基于大五人格理论 & 高原生态智慧<br>
+                        基于MBTI 16型人格理论 & 高原生态智慧<br>
                         探索你内心深处的野性原型
                     </p>
                     <div class="features">
@@ -44,12 +40,12 @@
                             <span>科学测评</span>
                         </div>
                         <div class="feature">
-                            <span class="feature-icon">🐺</span>
-                            <span>5种高原动物</span>
+                            <span class="feature-icon">🐾</span>
+                            <span>16种高原动物</span>
                         </div>
                         <div class="feature">
                             <span class="feature-icon">📊</span>
-                            <span>人格雷达图</span>
+                            <span>MBTI人格雷达图</span>
                         </div>
                     </div>
                     <button class="btn-primary" onclick="startTest()" role="button" tabindex="0" aria-label="开始测试">
@@ -68,7 +64,7 @@
                     <div class="progress-bar">
                         <div class="progress-fill" id="progress"></div>
                     </div>
-                    <span class="progress-text" id="progressText">第 1 题 / 共 36 题</span>
+                    <span class="progress-text" id="progressText">第 1 题 / 共 50 题</span>
                 </div>
             </div>
 
@@ -99,9 +95,15 @@
                 </div>
 
                 <div class="result-card">
+                    <!-- 动物图片 -->
+                    <div class="animal-image-container">
+                        <img id="animalImage" class="animal-image" src="" alt="" style="display:none;">
+                    </div>
+                    
                     <div class="animal-avatar" id="animalAvatar"></div>
                     <h3 class="animal-name" id="animalName"></h3>
                     <p class="animal-tagline" id="animalTagline"></p>
+                    <p class="animal-mbti" id="animalMbti"></p>
 
                     <div class="traits-container">
                         <h4>核心特质</h4>
@@ -111,14 +113,13 @@
                     </div>
 
                     <div class="radar-chart-container">
-                        <h4>人格雷达图</h4>
+                        <h4>MBTI人格维度</h4>
                         <canvas id="radarChart"></canvas>
                         <div class="radar-labels">
-                            <span>开放性</span>
-                            <span>责任感</span>
-                            <span>外向性</span>
-                            <span>宜人性</span>
-                            <span>神经质</span>
+                            <span>外向性(E)</span>
+                            <span>感觉性(S)</span>
+                            <span>思考性(T)</span>
+                            <span>判断性(J)</span>
                         </div>
                     </div>
 
@@ -127,8 +128,13 @@
                         <p class="description-text" id="resultDescription"></p>
                     </div>
 
+                    <div class="background-container">
+                        <h4>生灵背景</h4>
+                        <p class="background-text" id="animalBackground"></p>
+                    </div>
+
                     <div class="match-container">
-                        <h4>最佳匹配</h4>
+                        <h4>最佳伙伴</h4>
                         <p class="match-text" id="matchText"></p>
                     </div>
 
@@ -155,6 +161,9 @@
         </section>
     </div>
 
+    <!-- 先加载题库和动物数据 -->
+    <script src="questions.js"></script>
+    <script src="animals.js"></script>
     <script src="app.js"></script>
 </body>
 </html>

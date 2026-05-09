@@ -1063,3 +1063,70 @@ body::-webkit-scrollbar {
         transform: translateY(0);
     }
 }
+
+/* ========================================
+   动物图片样式（新增）
+   ======================================== */
+
+.animal-image-container {
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto 24px;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow-lg);
+    background: var(--bg-card);
+}
+
+.animal-image {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+    max-height: 350px;
+}
+
+/* 移动端优化 */
+@media (max-width: 768px) {
+    .animal-image-container {
+        max-width: 100%;
+        margin-bottom: 16px;
+    }
+    
+    .animal-image {
+        max-height: 250px;
+    }
+}
+
+/* 动物主题色（16种动物） */
+.color-intj { background: linear-gradient(135deg, rgba(90, 106, 122, 0.2) 0%, rgba(45, 90, 135, 0.2) 100%); }
+.color-infp { background: linear-gradient(135deg, rgba(147, 112, 219, 0.2) 0%, rgba(186, 85, 211, 0.2) 100%); }
+.color-istj { background: linear-gradient(135deg, rgba(74, 55, 40, 0.2) 0%, rgba(139, 115, 85, 0.2) 100%); }
+.color-esfj { background: linear-gradient(135deg, rgba(60, 179, 113, 0.2) 0%, rgba(32, 178, 170, 0.2) 100%); }
+.color-isfp { background: linear-gradient(135deg, rgba(255, 182, 193, 0.2) 0%, rgba(255, 105, 180, 0.2) 100%); }
+.color-istp { background: linear-gradient(135deg, rgba(70, 130, 180, 0.2) 0%, rgba(30, 144, 255, 0.2) 100%); }
+.color-infj { background: linear-gradient(135deg, rgba(75, 0, 130, 0.2) 0%, rgba(138, 43, 226, 0.2) 100%); }
+.color-estj { background: linear-gradient(135deg, rgba(139, 69, 19, 0.2) 0%, rgba(160, 82, 45, 0.2) 100%); }
+.color-entp { background: linear-gradient(135deg, rgba(255, 165, 0, 0.2) 0%, rgba(255, 140, 0, 0.2) 100%); }
+.color-intp { background: linear-gradient(135deg, rgba(72, 61, 139, 0.2) 0%, rgba(123, 104, 238, 0.2) 100%); }
+.color-enfj { background: linear-gradient(135deg, rgba(220, 20, 60, 0.2) 0%, rgba(255, 69, 0, 0.2) 100%); }
+.color-isfj { background: linear-gradient(135deg, rgba(188, 143, 143, 0.2) 0%, rgba(205, 175, 149, 0.2) 100%); }
+.color-entj { background: linear-gradient(135deg, rgba(139, 0, 0, 0.2) 0%, rgba(178, 34, 34, 0.2) 100%); }
+.color-enfp { background: linear-gradient(135deg, rgba(255, 215, 0, 0.2) 0%, rgba(255, 165, 0, 0.2) 100%); }
+.color-esfp { background: linear-gradient(135deg, rgba(255, 99, 71, 0.2) 0%, rgba(255, 127, 80, 0.2) 100%); }
+.color-estp { background: linear-gradient(135deg, rgba(210, 105, 30, 0.2) 0%, rgba(233, 150, 122, 0.2) 100%); }
+
+/* 动物头像 emoji 样式优化 */
+.animal-avatar {
+    font-size: 96px;
+    text-align: center;
+    margin: 20px 0;
+    display: block;
+    filter: drop-shadow(0 4px 8px rgba(0,0,0,0.1));
+}
+
+@media (max-width: 768px) {
+    .animal-avatar {
+        font-size: 72px;
+    }
+}
