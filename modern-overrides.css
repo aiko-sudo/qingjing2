@@ -436,10 +436,11 @@ body {
 
 /* 翻页按钮样式优化 */
 .navigation {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    margin-top: 30px;
+    display: flex !important;
+    flex-direction: row !important; /* 强制在一行显示，覆盖 styles.css 中移动端的 column 设置 */
+    justify-content: center !important;
+    gap: 20px !important;
+    margin-top: 30px !important;
 }
 
 .navigation .btn-secondary {
