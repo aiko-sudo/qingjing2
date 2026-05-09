@@ -1,113 +1,221 @@
 /**
- * 三江源动物性格测试 - 题库 (50题, MBTI四维度)
- * E/I 外向/内向 13题, S/N 感觉/直觉 12题, T/F 思考/情感 13题, J/P 判断/感知 12题
+ * 三江源动物性格测试 - 题库 (30题, 大五人格 OCEAN)
+ * 包含：大五人格基础题(15题)、高原情境投射题(9题)、行为偏好题(6题)
  */
 const questions = [
-    // ===== E/I 外向 vs 内向 (13题) =====
-    { dimension: 'EI', text: '在聚会中，你通常的状态是？',
-      options: [{text:'主动与陌生人交谈，享受热闹',score:2},{text:'和几个熟悉的朋友聊天就很开心',score:1},{text:'安静地待在角落观察大家',score:-1},{text:'能不去就不去，更享受独处',score:-2}] },
-    { dimension: 'EI', text: '周末你更喜欢怎么过？',
-      options: [{text:'约朋友一起出门逛街吃饭',score:2},{text:'参加一个有趣的线下活动',score:1},{text:'在家看书追剧，享受安静时光',score:-1},{text:'独自去一个没去过的地方探索',score:-2}] },
-    { dimension: 'EI', text: '遇到烦心事，你更倾向于？',
-      options: [{text:'找朋友倾诉，说出来就好了',score:2},{text:'在社交媒体上发发牢骚',score:1},{text:'自己安静地消化，不想麻烦别人',score:-1},{text:'写日记或独自散步来整理思绪',score:-2}] },
-    { dimension: 'EI', text: '在团队讨论中，你通常？',
-      options: [{text:'积极发言，主导讨论方向',score:2},{text:'适时表达自己的观点',score:1},{text:'先听别人说，最后再补充',score:-1},{text:'更倾向于私下交流想法',score:-2}] },
-    { dimension: 'EI', text: '你交新朋友的方式更接近？',
-      options: [{text:'自来熟，到哪都能聊起来',score:2},{text:'通过共同爱好慢慢熟悉',score:1},{text:'需要很长时间才会敞开心扉',score:-1},{text:'很少主动交新朋友',score:-2}] },
-    { dimension: 'EI', text: '让你充电恢复精力的方式是？',
-      options: [{text:'和朋友聚会聊天',score:2},{text:'去热闹的地方感受氛围',score:1},{text:'独处，做点自己喜欢的事',score:-1},{text:'在安静的环境中冥想或发呆',score:-2}] },
-    { dimension: 'EI', text: '接到一个新任务，你首先会？',
-      options: [{text:'找志同道合的人一起干',score:2},{text:'先跟大家讨论方案',score:1},{text:'自己先理清思路再找人配合',score:-1},{text:'独立完成，不需要别人介入',score:-2}] },
-    { dimension: 'EI', text: '你更喜欢哪种沟通方式？',
-      options: [{text:'面对面交流或视频通话',score:2},{text:'语音消息或电话',score:1},{text:'文字消息，想好再回复',score:-1},{text:'邮件或文档，不喜欢即时通讯',score:-2}] },
-    { dimension: 'EI', text: '在人群中待久了，你感觉？',
-      options: [{text:'越待越兴奋，精力充沛',score:2},{text:'还好，但偶尔需要喘口气',score:1},{text:'有点累，想找个安静的地方',score:-1},{text:'电量耗尽，必须独处恢复',score:-2}] },
-    { dimension: 'EI', text: '关于你的社交圈？',
-      options: [{text:'朋友很多，各个圈子都有人',score:2},{text:'有几个固定的好友圈子',score:1},{text:'两三个知心朋友就够了',score:-1},{text:'更喜欢一对一的深度关系',score:-2}] },
-    { dimension: 'EI', text: '到一个陌生城市，你会？',
-      options: [{text:'立刻出去逛，感受城市脉搏',score:2},{text:'找当地朋友带路探索',score:1},{text:'先查资料制定路线再行动',score:-1},{text:'随性地独自漫步，享受未知',score:-2}] },
-    { dimension: 'EI', text: '你表达想法的方式更接近？',
-      options: [{text:'边说边想，说着说着就清晰了',score:2},{text:'先简单说个大概再完善',score:1},{text:'想清楚再说，不喜欢说废话',score:-1},{text:'内心已经有完整想法才开口',score:-2}] },
-    { dimension: 'EI', text: '当你兴奋的时候？',
-      options: [{text:'忍不住想跟所有人分享',score:2},{text:'会找最亲近的人分享喜悦',score:1},{text:'默默开心，不太会表现出来',score:-1},{text:'把兴奋转化为独处的动力',score:-2}] },
+    // ===== 第一层：大五人格基础题 (15题) =====
+    { text: '在社交聚会中，你通常是怎样的状态？',
+      options: [
+          {text:'主动与陌生人交谈，享受热闹', scores: {O:0, C:0, E:2, A:1, N:-1}},
+          {text:'和几个熟悉的朋友聊天就很开心', scores: {O:0, C:0, E:1, A:1, N:0}},
+          {text:'安静地待在角落观察大家', scores: {O:0, C:0, E:-1, A:0, N:1}},
+          {text:'能不去就不去，更享受独处', scores: {O:0, C:0, E:-2, A:0, N:0}}
+      ] },
+    { text: '你如何看待生活中的"计划"与"变化"？',
+      options: [
+          {text:'喜欢有详细的计划并严格执行', scores: {O:-1, C:2, E:0, A:0, N:0}},
+          {text:'有大致的计划，但能接受微调', scores: {O:0, C:1, E:0, A:0, N:0}},
+          {text:'不喜欢被计划束缚，看心情做事', scores: {O:1, C:-1, E:0, A:0, N:0}},
+          {text:'极其享受变化带来的新鲜与刺激', scores: {O:2, C:-2, E:0, A:0, N:0}}
+      ] },
+    { text: '当朋友遇到困难向你倾诉时，你通常会？',
+      options: [
+          {text:'感同身受地陪TA一起难过', scores: {O:0, C:0, E:0, A:2, N:1}},
+          {text:'先共情安慰，让TA感受到温暖', scores: {O:0, C:0, E:0, A:1, N:0}},
+          {text:'帮TA客观分析问题出在哪里', scores: {O:0, C:0, E:0, A:-1, N:0}},
+          {text:'直接提供可行的解决方案', scores: {O:0, C:1, E:0, A:-2, N:-1}}
+      ] },
+    { text: '面对全新的知识领域或艺术形式，你的反应是？',
+      options: [
+          {text:'充满好奇，迫不及待想深入了解', scores: {O:2, C:0, E:0, A:0, N:0}},
+          {text:'觉得有意思，愿意花点时间看看', scores: {O:1, C:0, E:0, A:0, N:0}},
+          {text:'兴趣不大，更喜欢自己熟悉的领域', scores: {O:-1, C:0, E:0, A:0, N:0}},
+          {text:'抗拒新事物，觉得还是传统的好', scores: {O:-2, C:0, E:0, A:0, N:0}}
+      ] },
+    { text: '在面对压力和突发事件时，你的情绪波动大吗？',
+      options: [
+          {text:'非常容易焦虑和紧张，难以入睡', scores: {O:0, C:0, E:0, A:0, N:2}},
+          {text:'会有情绪起伏，但能慢慢平复', scores: {O:0, C:0, E:0, A:0, N:1}},
+          {text:'相对冷静，情绪不怎么受影响', scores: {O:0, C:0, E:0, A:0, N:-1}},
+          {text:'极度冷静，像没发生过一样', scores: {O:0, C:0, E:0, A:0, N:-2}}
+      ] },
+    { text: '在团队合作中，你更看重什么？',
+      options: [
+          {text:'团队的和谐与大家的感受', scores: {O:0, C:0, E:1, A:2, N:0}},
+          {text:'每个人都能发挥自己的特长', scores: {O:1, C:0, E:0, A:1, N:0}},
+          {text:'规则和流程的严格执行', scores: {O:0, C:2, E:0, A:-1, N:0}},
+          {text:'最终的效率和目标达成', scores: {O:0, C:1, E:0, A:-2, N:0}}
+      ] },
+    { text: '你的生活空间（房间或办公桌）通常是怎样的？',
+      options: [
+          {text:'一尘不染，物品摆放井井有条', scores: {O:0, C:2, E:0, A:0, N:0}},
+          {text:'比较整洁，偶尔有些乱', scores: {O:0, C:1, E:0, A:0, N:0}},
+          {text:'有点乱，但我知道东西在哪里', scores: {O:0, C:-1, E:0, A:0, N:0}},
+          {text:'非常随意，东西到处都是', scores: {O:0, C:-2, E:0, A:0, N:0}}
+      ] },
+    { text: '你对于哲学的、抽象的话题感兴趣吗？',
+      options: [
+          {text:'非常喜欢，经常思考人生和宇宙', scores: {O:2, C:0, E:0, A:0, N:0}},
+          {text:'偶尔会探讨一下深层含义', scores: {O:1, C:0, E:0, A:0, N:0}},
+          {text:'更喜欢聊具体的生活和现实问题', scores: {O:-1, C:0, E:0, A:0, N:0}},
+          {text:'觉得那些话题太空洞，浪费时间', scores: {O:-2, C:0, E:0, A:0, N:0}}
+      ] },
+    { text: '周末的你，电量是如何恢复的？',
+      options: [
+          {text:'去热闹的地方，和很多人一起狂欢', scores: {O:0, C:0, E:2, A:0, N:0}},
+          {text:'和三两好友聚餐聊天', scores: {O:0, C:0, E:1, A:0, N:0}},
+          {text:'在家安静地看书、看电影或做手工', scores: {O:0, C:0, E:-1, A:0, N:0}},
+          {text:'完全切断社交，独自发呆冥想', scores: {O:0, C:0, E:-2, A:0, N:0}}
+      ] },
+    { text: '如果在工作中遭到他人的误解或批评，你会？',
+      options: [
+          {text:'陷入自我怀疑，心情低落很久', scores: {O:0, C:0, E:0, A:0, N:2}},
+          {text:'心里很不舒服，会找朋友倾诉', scores: {O:0, C:0, E:0, A:0, N:1}},
+          {text:'有些不快，但会分析对方说的对不对', scores: {O:0, C:0, E:0, A:0, N:-1}},
+          {text:'完全不往心里去，坚持自己的做法', scores: {O:0, C:0, E:0, A:0, N:-2}}
+      ] },
+    { text: '对于承诺的事情，你的态度是？',
+      options: [
+          {text:'即便自己吃亏也要百分百兑现', scores: {O:0, C:2, E:0, A:1, N:0}},
+          {text:'尽力去完成，但会量力而行', scores: {O:0, C:1, E:0, A:0, N:0}},
+          {text:'情况有变的话，可以灵活调整', scores: {O:0, C:-1, E:0, A:0, N:0}},
+          {text:'常常会因为忘记或嫌麻烦而爽约', scores: {O:0, C:-2, E:0, A:-1, N:0}}
+      ] },
+    { text: '遇到有人在大街上乞讨或求助，你会？',
+      options: [
+          {text:'非常心疼，毫不犹豫地给予帮助', scores: {O:0, C:0, E:0, A:2, N:1}},
+          {text:'会给一点钱，希望他们能好过些', scores: {O:0, C:0, E:0, A:1, N:0}},
+          {text:'觉得可能是骗子，冷漠走开', scores: {O:0, C:0, E:0, A:-1, N:0}},
+          {text:'坚信应该由社会机构解决，从不施舍', scores: {O:0, C:0, E:0, A:-2, N:0}}
+      ] },
+    { text: '你喜欢去没去过的地方旅行吗？',
+      options: [
+          {text:'非常喜欢，热爱未知的冒险', scores: {O:2, C:-1, E:1, A:0, N:0}},
+          {text:'挺喜欢的，但会提前做好攻略', scores: {O:1, C:1, E:0, A:0, N:0}},
+          {text:'觉得太麻烦，更喜欢熟悉的地方', scores: {O:-1, C:0, E:0, A:0, N:0}},
+          {text:'完全不想去，待在家里最好', scores: {O:-2, C:0, E:-1, A:0, N:0}}
+      ] },
+    { text: '你觉得自己是一个容易生闷气的人吗？',
+      options: [
+          {text:'是的，常常觉得别人针对我', scores: {O:0, C:0, E:-1, A:0, N:2}},
+          {text:'偶尔会，但不开心很快就过去了', scores: {O:0, C:0, E:0, A:0, N:1}},
+          {text:'很少生气，有什么都当面说清', scores: {O:0, C:0, E:1, A:0, N:-1}},
+          {text:'几乎不生气，觉得没必要', scores: {O:0, C:0, E:0, A:0, N:-2}}
+      ] },
+    { text: '在人群中，你更希望自己是？',
+      options: [
+          {text:'舞台中央的焦点，吸引所有目光', scores: {O:0, C:0, E:2, A:0, N:0}},
+          {text:'活跃气氛的参与者，但不一定做主角', scores: {O:0, C:0, E:1, A:0, N:0}},
+          {text:'边缘的观察者，默默融入背景', scores: {O:0, C:0, E:-1, A:0, N:0}},
+          {text:'最好没人注意到我', scores: {O:0, C:0, E:-2, A:0, N:0}}
+      ] },
 
-    // ===== S/N 感觉 vs 直觉 (12题) =====
-    { dimension: 'SN', text: '你更关注的是？',
-      options: [{text:'当下的事实和细节',score:2},{text:'具体的行动步骤',score:1},{text:'未来的可能性与趋势',score:-1},{text:'事物背后的深层含义',score:-2}] },
-    { dimension: 'SN', text: '学习新东西时，你更喜欢？',
-      options: [{text:'按照步骤一步步来',score:2},{text:'看实际案例和操作演示',score:1},{text:'先了解整体框架和原理',score:-1},{text:'自由探索，找到自己的理解方式',score:-2}] },
-    { dimension: 'SN', text: '你更信赖的是？',
-      options: [{text:'亲身体验和验证过的事实',score:2},{text:'权威数据和统计结果',score:1},{text:'自己的直觉和第六感',score:-1},{text:'灵感和联想带来的启发',score:-2}] },
-    { dimension: 'SN', text: '描述一件事时，你更倾向于？',
-      options: [{text:'准确具体地说出细节',score:2},{text:'用实际例子来说明',score:1},{text:'用比喻和类比来解释',score:-1},{text:'描绘一个宏观的愿景和图景',score:-2}] },
-    { dimension: 'SN', text: '面对一个问题，你首先？',
-      options: [{text:'分析现状，收集具体信息',score:2},{text:'回顾过去类似经验的做法',score:1},{text:'跳出现有框架，寻找新角度',score:-1},{text:'构想一个理想的解决方案',score:-2}] },
-    { dimension: 'SN', text: '你对"改变"的态度是？',
-      options: [{text:'改变需要充分理由和证据',score:2},{text:'循序渐进地调整比较好',score:1},{text:'改变是进步的必经之路',score:-1},{text:'大胆变革才能突破',score:-2}] },
-    { dimension: 'SN', text: '你更欣赏的人是？',
-      options: [{text:'务实可靠、执行力强的实干家',score:2},{text:'经验丰富、技艺精湛的匠人',score:1},{text:'富有远见、敢于创新的先驱',score:-1},{text:'想象力丰富、不拘一格的创作者',score:-2}] },
-    { dimension: 'SN', text: '读一本书，你更关注？',
-      options: [{text:'具体的情节和人物描写',score:2},{text:'实用的知识和方法',score:1},{text:'隐含的象征和深层主题',score:-1},{text:'书中提出的新观念和思想',score:-2}] },
-    { dimension: 'SN', text: '制定计划时，你更？',
-      options: [{text:'详细列出每个步骤和时间节点',score:2},{text:'参考成功案例制定方案',score:1},{text:'定一个大方向，具体走着看',score:-1},{text:'灵感来了再行动，计划赶不上变化',score:-2}] },
-    { dimension: 'SN', text: '你更喜欢哪种旅行？',
-      options: [{text:'攻略详尽的经典路线',score:2},{text:'有专业向导的深度体验',score:1},{text:'没有目的地的自由行',score:-1},{text:'充满未知和惊喜的冒险之旅',score:-2}] },
-    { dimension: 'SN', text: '你做事更依赖？',
-      options: [{text:'经过验证的方法和流程',score:2},{text:'积累的实操经验',score:1},{text:'对事物的整体直觉判断',score:-1},{text:'突然的灵感和创意',score:-2}] },
-    { dimension: 'SN', text: '你对"规则"的看法是？',
-      options: [{text:'规则存在就有其道理，应该遵守',score:2},{text:'在规则之内灵活运用',score:1},{text:'规则可以优化和改进',score:-1},{text:'规则就是用来打破的',score:-2}] },
+    // ===== 第二层：高原情境投射题 (9题) =====
+    { text: '如果你在三江源的广袤高原上迷路，你会：',
+      options: [
+          {text:'独自寻找高处观察地形和出路', scores: {O:1, C:0, E:-1, A:0, N:-1}},
+          {text:'寻找动物的足迹，跟随群体移动方向', scores: {O:0, C:0, E:1, A:1, N:0}},
+          {text:'原地建立庇护所，耐心等待救援', scores: {O:0, C:2, E:0, A:0, N:0}},
+          {text:'尝试向不同方向探索，寻找水源或道路', scores: {O:2, C:-1, E:0, A:0, N:0}}
+      ] },
+    { text: '高原上突然刮起暴风雪，你正好在一个山洞避险，此时有只陌生的动物也想进来：',
+      options: [
+          {text:'欣然接纳，甚至想分点食物给它', scores: {O:0, C:0, E:0, A:2, N:0}},
+          {text:'让它进来，但保持警惕距离', scores: {O:0, C:0, E:0, A:1, N:0}},
+          {text:'只允许它待在洞口边缘', scores: {O:0, C:0, E:0, A:-1, N:1}},
+          {text:'大声驱赶，保护自己的领地安全', scores: {O:0, C:0, E:0, A:-2, N:-1}}
+      ] },
+    { text: '你发现了一片未被人类标记的神秘冰川，你的第一反应是：',
+      options: [
+          {text:'惊叹于它的美丽，立刻开始拍照记录', scores: {O:1, C:0, E:0, A:0, N:0}},
+          {text:'好奇冰川的结构，想要攀爬探索', scores: {O:2, C:0, E:1, A:0, N:0}},
+          {text:'担心这里有未知危险，想要离开', scores: {O:0, C:0, E:0, A:0, N:2}},
+          {text:'思考冰川消融的环保意义', scores: {O:1, C:1, E:0, A:1, N:0}}
+      ] },
+    { text: '在草原上，你观察到一群动物正在集体迁徙，你觉得它们之所以行动一致是因为：',
+      options: [
+          {text:'领头者的智慧和威望', scores: {O:0, C:0, E:1, A:0, N:0}},
+          {text:'深入骨髓的本能和默契', scores: {O:1, C:0, E:0, A:1, N:0}},
+          {text:'严格的等级制度和服从', scores: {O:0, C:2, E:0, A:-1, N:0}},
+          {text:'害怕掉队被捕食的恐惧', scores: {O:0, C:0, E:0, A:0, N:1}}
+      ] },
+    { text: '作为高原生态摄影师，你必须选择一个拍摄目标，你会选：',
+      options: [
+          {text:'捕捉雪豹捕猎的惊险瞬间', scores: {O:1, C:0, E:0, A:-1, N:-1}},
+          {text:'拍摄藏羚羊群温馨互动的日常', scores: {O:0, C:0, E:1, A:2, N:0}},
+          {text:'蹲守罕见高山植物开花的过程', scores: {O:1, C:2, E:-1, A:0, N:0}},
+          {text:'记录暴风雪中动物艰难求生的画面', scores: {O:0, C:1, E:0, A:0, N:1}}
+      ] },
+    { text: '在牧民的帐篷里，主人端来一碗你从未见过的奇怪食物：',
+      options: [
+          {text:'兴奋地立刻尝一口，喜欢尝试新口味', scores: {O:2, C:-1, E:0, A:0, N:0}},
+          {text:'为了不辜负主人的热情，勉强吃下去', scores: {O:0, C:0, E:0, A:2, N:1}},
+          {text:'礼貌地询问是什么做的，再决定吃不吃', scores: {O:1, C:1, E:0, A:0, N:0}},
+          {text:'委婉拒绝，坚决不吃不熟悉的东西', scores: {O:-2, C:0, E:0, A:-1, N:0}}
+      ] },
+    { text: '如果在高原上遇到狼群，但在安全距离外，你会：',
+      options: [
+          {text:'心跳加速，感到极度恐慌和不安', scores: {O:0, C:0, E:0, A:0, N:2}},
+          {text:'保持不动，默默观察它们的行为', scores: {O:1, C:1, E:-1, A:0, N:0}},
+          {text:'迅速规划撤退路线，安全第一', scores: {O:0, C:2, E:0, A:0, N:-1}},
+          {text:'觉得刺激，甚至想靠得更近一点看', scores: {O:2, C:-1, E:1, A:0, N:-1}}
+      ] },
+    { text: '面对连绵不绝的雪山，你内心的感受更接近：',
+      options: [
+          {text:'敬畏自然，感受到自己的渺小', scores: {O:1, C:0, E:0, A:1, N:1}},
+          {text:'充满征服欲，想要爬上顶峰', scores: {O:0, C:1, E:1, A:-1, N:-1}},
+          {text:'感到内心的宁静，仿佛时间静止', scores: {O:1, C:0, E:-1, A:0, N:-1}},
+          {text:'孤独感袭来，觉得过于荒凉', scores: {O:0, C:0, E:0, A:0, N:2}}
+      ] },
+    { text: '你在高原发现了一个受伤的小动物，但你的补给也不多了：',
+      options: [
+          {text:'分出自己的补给照顾它，不忍心不管', scores: {O:0, C:0, E:0, A:2, N:1}},
+          {text:'尝试做个简单的包扎，然后继续赶路', scores: {O:0, C:1, E:0, A:1, N:0}},
+          {text:'理性判断自己能力不足，选择离开', scores: {O:0, C:1, E:0, A:-1, N:-1}},
+          {text:'遵循大自然物竞天择的规律，不干预', scores: {O:0, C:0, E:0, A:-2, N:-1}}
+      ] },
 
-    // ===== T/F 思考 vs 情感 (13题) =====
-    { dimension: 'TF', text: '做重要决定时，你更看重？',
-      options: [{text:'客观的数据和逻辑分析',score:2},{text:'利弊得失的理性权衡',score:1},{text:'这个决定对身边人的影响',score:-1},{text:'内心的感觉和价值观',score:-2}] },
-    { dimension: 'TF', text: '朋友向你倾诉烦恼，你首先会？',
-      options: [{text:'帮TA分析问题出在哪',score:2},{text:'提供客观的建议和解决方案',score:1},{text:'先共情安慰，让TA知道你在',score:-1},{text:'感同身受地陪TA一起难过',score:-2}] },
-    { dimension: 'TF', text: '评价一个人的标准，你更看重？',
-      options: [{text:'能力和实际成果',score:2},{text:'是否靠谱、讲信用',score:1},{text:'为人和善、真诚',score:-1},{text:'有没有温度和共情力',score:-2}] },
-    { dimension: 'TF', text: '工作中遇到分歧，你倾向于？',
-      options: [{text:'摆事实讲道理，用数据说服',score:2},{text:'理性讨论，找到最优方案',score:1},{text:'照顾各方感受，寻求共识',score:-1},{text:'先缓和气氛，再寻找双方都能接受的结果',score:-2}] },
-    { dimension: 'TF', text: '你认为好的领导应该？',
-      options: [{text:'制定清晰的战略和考核标准',score:2},{text:'赏罚分明，用制度管理',score:1},{text:'关心团队成员的状态和需求',score:-1},{text:'营造温暖互助的团队氛围',score:-2}] },
-    { dimension: 'TF', text: '被批评时，你的第一反应是？',
-      options: [{text:'冷静分析批评是否客观合理',score:2},{text:'思考如何改进提升',score:1},{text:'先消化情绪，再决定怎么面对',score:-1},{text:'会很受伤，觉得对方不理解自己',score:-2}] },
-    { dimension: 'TF', text: '选择工作/专业时，你更考虑？',
-      options: [{text:'行业前景和薪资待遇',score:2},{text:'个人能力匹配度和成长空间',score:1},{text:'是否对社会和他人有价值',score:-1},{text:'是否符合自己的兴趣和热爱',score:-2}] },
-    { dimension: 'TF', text: '你更认同哪种观点？',
-      options: [{text:'公平比和谐更重要',score:2},{text:'效率优先，感情其次',score:1},{text:'和谐比输赢更重要',score:-1},{text:'人心比道理更重要',score:-2}] },
-    { dimension: 'TF', text: '看一部感人的电影，你会？',
-      options: [{text:'欣赏剧情的逻辑和结构',score:2},{text:'评价演员的演技和导演手法',score:1},{text:'被角色命运打动，默默感动',score:-1},{text:'完全沉浸其中，哭得稀里哗啦',score:-2}] },
-    { dimension: 'TF', text: '帮助别人时，你的出发点是？',
-      options: [{text:'这是正确的做法，应该帮忙',score:2},{text:'互帮互助是合理的社会规则',score:1},{text:'看到对方需要帮助，心里不忍',score:-1},{text:'纯粹因为在意这个人，想让TA好',score:-2}] },
-    { dimension: 'TF', text: '面对两个选择犹豫不决时？',
-      options: [{text:'列一个优缺点对比表',score:2},{text:'分析哪个选择更理性',score:1},{text:'问问身边人的意见和感受',score:-1},{text:'跟着心走，选择让自己安心的',score:-2}] },
-    { dimension: 'TF', text: '和朋友发生冲突，你会？',
-      options: [{text:'就事论事，把问题说清楚',score:2},{text:'寻找双方都能接受的折中方案',score:1},{text:'先道歉缓和关系，关系比对错重要',score:-1},{text:'主动退让，不想因为争执伤害感情',score:-2}] },
-    { dimension: 'TF', text: '你认为"善良"意味着？',
-      options: [{text:'做正确的事，即使短期内不被理解',score:2},{text:'有原则地帮助他人',score:1},{text:'真心实意地对每个人好',score:-1},{text:'愿意为在乎的人无条件付出',score:-2}] },
-
-    // ===== J/P 判断 vs 感知 (12题) =====
-    { dimension: 'JP', text: '你的生活方式更接近？',
-      options: [{text:'有清晰的日程表和待办清单',score:2},{text:'喜欢提前规划好大部分事情',score:1},{text:'大致有个方向就好，走一步看一步',score:-1},{text:'完全随性，讨厌被计划束缚',score:-2}] },
-    { dimension: 'JP', text: '对待截止日期？',
-      options: [{text:'提前完成，留出充裕的检查时间',score:2},{text:'按时完成，不喜欢拖延',score:1},{text:'在截止前冲刺，效率反而更高',score:-1},{text:'最后一刻才动工是常态',score:-2}] },
-    { dimension: 'JP', text: '出门旅行前？',
-      options: [{text:'详细攻略已做好，精确到小时',score:2},{text:'大行程确定，细节到了再安排',score:1},{text:'只订了机票酒店，其他随缘',score:-1},{text:'什么都不定，到了再说更刺激',score:-2}] },
-    { dimension: 'JP', text: '你做决定的速度？',
-      options: [{text:'很快，定了就不纠结',score:2},{text:'比较快，权衡之后果断选择',score:1},{text:'会比较犹豫，想看看有没有更好的',score:-1},{text:'特别纠结，总怕选错',score:-2}] },
-    { dimension: 'JP', text: '你的工作/学习环境？',
-      options: [{text:'整洁有序，每样东西都有固定位置',score:2},{text:'基本整洁，偶尔乱一下也能接受',score:1},{text:'有点乱但我知道东西在哪',score:-1},{text:'创造性混乱，灵感需要自由空间',score:-2}] },
-    { dimension: 'JP', text: '对于变化的态度？',
-      options: [{text:'不喜欢突然的变化，计划好的最好',score:2},{text:'变化可以接受，但需要时间调整',score:1},{text:'变化带来新鲜感，挺期待的',score:-1},{text:'人生就是充满变化才有趣',score:-2}] },
-    { dimension: 'JP', text: '你觉得"完美"的标准是？',
-      options: [{text:'每个细节都到位，无可挑剔',score:2},{text:'达到预期目标，符合标准',score:1},{text:'差不多就行了，不必太较真',score:-1},{text:'完成比完美重要，先做再说',score:-2}] },
-    { dimension: 'JP', text: '你更享受的状态是？',
-      options: [{text:'任务完成后的成就感和满足感',score:2},{text:'按照计划推进时的掌控感',score:1},{text:'探索新事物时的兴奋感',score:-1},{text:'自由自在、没有约束的随性',score:-2}] },
-    { dimension: 'JP', text: '关于人生规划？',
-      options: [{text:'有清晰的目标和阶段性的里程碑',score:2},{text:'大方向明确，具体走着看',score:1},{text:'不想规划太远，活在当下',score:-1},{text:'人生是开放式的，何必设限',score:-2}] },
-    { dimension: 'JP', text: '你处理多件事情的方式？',
-      options: [{text:'一件一件来，做完再做下一件',score:2},{text:'按优先级排序依次完成',score:1},{text:'同时进行好几件，换来换去',score:-1},{text:'看心情，哪个想做就做哪个',score:-2}] },
-    { dimension: 'JP', text: '对你来说"规矩"意味着？',
-      options: [{text:'必要的框架，让生活更有秩序',score:2},{text:'合理的约束，但可以灵活执行',score:1},{text:'可以参考但不必完全照做',score:-1},{text:'条条框框限制了可能性',score:-2}] },
-    { dimension: 'JP', text: '你买东西的习惯？',
-      options: [{text:'先研究对比，确定目标再出手',score:2},{text:'有大致想法，但也会货比三家',score:1},{text:'看到喜欢的就买了，不太纠结',score:-1},{text:'完全凭感觉，冲动消费是常态',score:-2}] }
+    // ===== 第三层：行为偏好选择题 (6题) =====
+    { text: '你更欣赏哪种工作状态？',
+      options: [
+          {text:'独自一人，专注高效地完成任务', scores: {O:0, C:1, E:-2, A:0, N:0}},
+          {text:'团队协作，大家热火朝天地推进', scores: {O:0, C:0, E:2, A:1, N:0}},
+          {text:'灵活应变，处理各种突发状况', scores: {O:1, C:-1, E:1, A:0, N:0}},
+          {text:'严格按计划执行，不容差错', scores: {O:0, C:2, E:0, A:-1, N:0}}
+      ] },
+    { text: '如果你的生活是一本书，你希望它的文风是？',
+      options: [
+          {text:'充满奇幻色彩和浪漫想象的诗歌', scores: {O:2, C:-1, E:0, A:1, N:0}},
+          {text:'逻辑严密、硬核推理的悬疑小说', scores: {O:0, C:2, E:0, A:-1, N:0}},
+          {text:'温暖治愈、记录日常的散文', scores: {O:0, C:1, E:0, A:2, N:-1}},
+          {text:'跌宕起伏、高潮迭起的冒险纪实', scores: {O:1, C:0, E:2, A:0, N:0}}
+      ] },
+    { text: '遇到问题时，你倾向于从哪里寻找答案？',
+      options: [
+          {text:'书本、论文等权威的理论依据', scores: {O:1, C:1, E:-1, A:0, N:0}},
+          {text:'和前辈、专家交流讨论', scores: {O:0, C:0, E:1, A:1, N:0}},
+          {text:'自己动手实验、试错', scores: {O:2, C:0, E:0, A:0, N:0}},
+          {text:'直觉和过往的实战经验', scores: {O:0, C:-1, E:1, A:-1, N:0}}
+      ] },
+    { text: '周末的早晨，你通常如何度过？',
+      options: [
+          {text:'按时起床，安排好一天的行程', scores: {O:0, C:2, E:0, A:0, N:0}},
+          {text:'睡到自然醒，想到什么就做什么', scores: {O:0, C:-2, E:0, A:0, N:0}},
+          {text:'早早出门，去探索城市的新角落', scores: {O:2, C:0, E:1, A:0, N:0}},
+          {text:'躺在床上刷手机，觉得有点空虚', scores: {O:0, C:0, E:0, A:0, N:2}}
+      ] },
+    { text: '你如何看待社会规则和传统？',
+      options: [
+          {text:'规则是社会的基石，必须遵守', scores: {O:-1, C:2, E:0, A:0, N:0}},
+          {text:'大部分规则合理，但可以适度变通', scores: {O:0, C:1, E:0, A:0, N:0}},
+          {text:'许多规则已经过时，需要不断创新', scores: {O:2, C:-1, E:0, A:0, N:0}},
+          {text:'规则就是用来打破的', scores: {O:2, C:-2, E:0, A:-1, N:0}}
+      ] },
+    { text: '评价一个人的成就，你更看重？',
+      options: [
+          {text:'他对社会和他人的实际贡献', scores: {O:0, C:1, E:0, A:2, N:0}},
+          {text:'他在自己领域内达到的专业高度', scores: {O:1, C:2, E:0, A:0, N:0}},
+          {text:'他是否活出了自己想要的样子', scores: {O:2, C:0, E:0, A:0, N:0}},
+          {text:'他积累的财富和世俗的成功', scores: {O:0, C:1, E:1, A:-1, N:0}}
+      ] }
 ];

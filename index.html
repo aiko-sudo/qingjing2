@@ -8,7 +8,7 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <title>三江源动物性格测试 - 寻找你的高原图腾</title>
-    <meta name="description" content="基于MBTI 16型人格的高原动物性格测试，探索你内心深处的野性原型">
+    <meta name="description" content="基于大五人格与PDP的高原动物性格测试，探索你内心深处的野性原型">
     <!-- 性能优化：DNS预解析 -->
     <link rel="dns-prefetch" href="fonts.googleapis.com">
     <!-- 性能优化：预连接，提前建立连接 -->
@@ -38,7 +38,7 @@
                     <h1>动物性格测试</h1>
                     <p class="tagline">寻找你的高原图腾</p>
                     <p class="description">
-                        基于MBTI 16型人格理论 & 高原生态智慧<br>
+                        基于大五人格(OCEAN)理论 & PDP行为特质模型<br>
                         探索你内心深处的野性原型
                     </p>
                     <div class="features">
@@ -52,14 +52,14 @@
                         </div>
                         <div class="feature">
                             <span class="feature-icon">📊</span>
-                            <span>MBTI人格雷达图</span>
+                            <span>大五人格雷达图</span>
                         </div>
                     </div>
                     <button class="btn-primary" onclick="startTest()" role="button" tabindex="0" aria-label="开始测试">
                         开始测试
                         <span class="btn-arrow">→</span>
                     </button>
-                    <p class="disclaimer">本测试仅供娱乐，非临床诊断工具</p>
+                    <p class="disclaimer">本测试基于大五人格理论和动物行为生态学设计，仅供娱乐和自我探索，非临床诊断工具</p>
                 </div>
             </div>
         </section>
@@ -71,7 +71,7 @@
                     <div class="progress-bar">
                         <div class="progress-fill" id="progress"></div>
                     </div>
-                    <span class="progress-text" id="progressText">第 1 题 / 共 50 题</span>
+                    <span class="progress-text" id="progressText">第 1 题 / 共 30 题</span>
                 </div>
             </div>
 
@@ -110,7 +110,7 @@
                     <div class="animal-avatar" id="animalAvatar"></div>
                     <h3 class="animal-name" id="animalName"></h3>
                     <p class="animal-tagline" id="animalTagline"></p>
-                    <p class="animal-mbti" id="animalMbti"></p>
+                    <p class="animal-type" id="animalType"></p>
 
                     <div class="traits-container">
                         <h4>核心特质</h4>
@@ -120,13 +120,14 @@
                     </div>
 
                     <div class="radar-chart-container">
-                        <h4>MBTI人格维度</h4>
+                        <h4>大五人格维度</h4>
                         <canvas id="radarChart"></canvas>
-                        <div class="radar-labels">
+                        <div class="radar-labels" style="display: none;">
+                            <span>开放性(O)</span>
+                            <span>尽责性(C)</span>
                             <span>外向性(E)</span>
-                            <span>感觉性(S)</span>
-                            <span>思考性(T)</span>
-                            <span>判断性(J)</span>
+                            <span>宜人性(A)</span>
+                            <span>神经质(N)</span>
                         </div>
                     </div>
 
@@ -162,7 +163,7 @@
 
                 <div class="wildlife-notice">
                     <p>🦌 守护高原，从了解开始</p>
-                    <p>每份测试我们将捐赠 1 元用于三江源野生动物保护</p>
+                    <p>每份测试我们将捐赠 1 元用于三江源野生动物保护项目</p>
                 </div>
             </div>
         </section>

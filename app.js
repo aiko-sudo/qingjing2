@@ -1,6 +1,5 @@
 /**
- * 三江源动物性格测试 - JavaScript 逻辑 (MBTI 16型)
- * 基于 MBTI 四维度：E/I、S/N、T/F、J/P → 16种动物人格
+ * 三江源动物性格测试 - JavaScript 逻辑 (大五人格 OCEAN -> 16种动物映射)
  */
 
 // ========================================
@@ -62,7 +61,7 @@ function addTouchListeners(selector) {
     });
 }
 
-// 性能优化：事件委托用于选项点击（单个监听器替代多个）
+// 性能优化：事件委托用于选项点击
 function setupOptionDelegation() {
     optionsContainer.addEventListener('click', (e) => {
         const optionEl = e.target.closest('.option');
@@ -74,7 +73,6 @@ function setupOptionDelegation() {
         }
     });
 
-    // 性能优化：事件委托用于触摸状态
     optionsContainer.addEventListener('touchstart', (e) => {
         const optionEl = e.target.closest('.option');
         if (optionEl && optionsContainer.contains(optionEl)) {
@@ -104,7 +102,7 @@ function setupOptionDelegation() {
 
 let currentQuestion = 0;
 let answers = []; // 存储每道题的选项索引
-let results = {}; // MBTI 四维度得分
+let results = {}; // OCEAN得分
 
 // DOM 元素缓存
 let optionsContainer, progressBar, progressText, prevBtn, nextBtn, questionText, questionCard;
@@ -114,7 +112,6 @@ let optionsContainer, progressBar, progressText, prevBtn, nextBtn, questionText,
 // ========================================
 
 document.addEventListener('DOMContentLoaded', () => {
-    // 缓存 DOM 元素
     optionsContainer = document.getElementById('options');
     progressBar = document.getElementById('progress');
     progressText = document.getElementById('progressText');
@@ -125,10 +122,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     showPage('home');
 
-    // 性能优化：设置懒加载
     setupLazyLoading();
-
-    // 性能优化：设置事件委托用于选项
     setupOptionDelegation();
 
     addTouchListeners('.btn-primary');
@@ -169,11 +163,9 @@ function restartTest() {
 function renderQuestion() {
     const q = questions[currentQuestion];
 
-    // 性能优化：使用 requestAnimationFrame 批量更新 DOM
     requestAnimationFrame(() => {
         questionText.textContent = q.text;
 
-        // 性能优化：使用 DocumentFragment 批量添加选项
         const fragment = document.createDocumentFragment();
 
         q.options.forEach((option, index) => {
@@ -186,7 +178,6 @@ function renderQuestion() {
 
             optionEl.innerHTML = `
                 <span class="option-text">${option.text}</span>
-                <span class="option-score">${option.score > 0 ? '+' : ''}${option.score}</span>
             `;
 
             fragment.appendChild(optionEl);
@@ -195,23 +186,19 @@ function renderQuestion() {
         optionsContainer.innerHTML = '';
         optionsContainer.appendChild(fragment);
 
-        // 更新进度
         const progressPercent = ((currentQuestion + 1) / questions.length) * 100;
         progressBar.style.width = `${progressPercent}%`;
         progressText.textContent = `第 ${currentQuestion + 1} 题 / 共 ${questions.length} 题`;
 
-        // 更新按钮状态
         prevBtn.disabled = currentQuestion === 0;
         nextBtn.disabled = answers[currentQuestion] === -1;
 
-        // 如果是最后一题且已作答，按钮文字改为"查看结果"
         if (currentQuestion === questions.length - 1 && answers[currentQuestion] !== -1) {
             nextBtn.textContent = '查看结果 →';
         } else {
             nextBtn.textContent = '下一题 →';
         }
 
-        // 动画效果
         questionCard.classList.remove('fade-in');
         void questionCard.offsetWidth; // 触发重排
         questionCard.classList.add('fade-in');
@@ -225,15 +212,12 @@ function renderQuestion() {
 function selectOption(index) {
     answers[currentQuestion] = index;
 
-    // 更新选项样式
     optionsContainer.querySelectorAll('.option').forEach((opt, i) => {
         opt.classList.toggle('selected', i === index);
     });
 
-    // 启用下一题按钮
     nextBtn.disabled = false;
 
-    // 如果当前是最后一题，更新按钮文字
     if (currentQuestion === questions.length - 1) {
         nextBtn.textContent = '查看结果 →';
     }
@@ -246,7 +230,6 @@ function nextQuestion() {
         currentQuestion++;
         renderQuestion();
     } else if (currentQuestion === questions.length - 1 && answers[currentQuestion] !== -1) {
-        // 最后一题已作答，计算结果
         calculateResults();
         showResult();
     }
@@ -260,61 +243,61 @@ function prevQuestion() {
 }
 
 // ========================================
-// MBTI 结果计算函数
+// 结果计算函数 (大五人格 -> 16动物)
 // ========================================
 
 function calculateResults() {
-    // 初始化四维度得分
-    const dimensions = {
-        EI: { E: 0, I: 0, count: 0 },  // 外向(E) vs 内向(I)
-        SN: { S: 0, N: 0, count: 0 },  // 感觉(S) vs 直觉(N)
-        TF: { T: 0, F: 0, count: 0 },  // 思考(T) vs 情感(F)
-        JP: { J: 0, P: 0, count: 0 }   // 判断(J) vs 感知(P)
+    // 初始得分为0
+    const scores = { O: 0, C: 0, E: 0, A: 0, N: 0 };
+    
+    // 可能的最小最大得分，用于归一化雷达图
+    const minMax = {
+        O: { min: 0, max: 0 },
+        C: { min: 0, max: 0 },
+        E: { min: 0, max: 0 },
+        A: { min: 0, max: 0 },
+        N: { min: 0, max: 0 }
     };
 
-    // 计算每维度得分
+    // 计算实际得分和理论极值
     for (let i = 0; i < answers.length; i++) {
-        const question = questions[i];
-        const dimension = question.dimension; // 'EI', 'SN', 'TF', 'JP'
-        const score = question.options[answers[i]].score;
+        const q = questions[i];
+        const selectedScores = q.options[answers[i]].scores;
+        
+        let localMin = {O:0, C:0, E:0, A:0, N:0};
+        let localMax = {O:0, C:0, E:0, A:0, N:0};
 
-        dimensions[dimension].count++;
+        q.options.forEach(opt => {
+            for(const dim in opt.scores) {
+                if(opt.scores[dim] < localMin[dim]) localMin[dim] = opt.scores[dim];
+                if(opt.scores[dim] > localMax[dim]) localMax[dim] = opt.scores[dim];
+            }
+        });
 
-        if (score > 0) {
-            // 正向得分：E/S/T/J
-            switch (dimension) {
-                case 'EI': dimensions.EI.E += score; break;
-                case 'SN': dimensions.SN.S += score; break;
-                case 'TF': dimensions.TF.T += score; break;
-                case 'JP': dimensions.JP.J += score; break;
-            }
-        } else {
-            // 负向得分：I/N/F/P
-            switch (dimension) {
-                case 'EI': dimensions.EI.I += Math.abs(score); break;
-                case 'SN': dimensions.SN.N += Math.abs(score); break;
-                case 'TF': dimensions.TF.F += Math.abs(score); break;
-                case 'JP': dimensions.JP.P += Math.abs(score); break;
-            }
+        for(const dim in scores) {
+            scores[dim] += selectedScores[dim] || 0;
+            minMax[dim].min += localMin[dim];
+            minMax[dim].max += localMax[dim];
         }
     }
 
-    // 确定 MBTI 类型（每个维度选得分高的）
+    // 映射到 MBTI 字母以复用16种动物
+    // E > 0 => E, 否则 I
+    // O > 0 => N (直觉), 否则 S (感觉)
+    // A > 0 => F (情感), 否则 T (思考)
+    // C > 0 => J (判断), 否则 P (感知)
+    
     const mbtiType = [
-        dimensions.EI.E >= dimensions.EI.I ? 'E' : 'I',
-        dimensions.SN.S >= dimensions.SN.N ? 'S' : 'N',
-        dimensions.TF.T >= dimensions.TF.F ? 'T' : 'F',
-        dimensions.JP.J >= dimensions.JP.P ? 'J' : 'P'
+        scores.E >= 0 ? 'E' : 'I',
+        scores.O >= 0 ? 'N' : 'S',
+        scores.A >= 0 ? 'F' : 'T',
+        scores.C >= 0 ? 'J' : 'P'
     ].join('');
 
-    // 存储结果
     results = {
-        mbti: mbtiType,
-        dimensions: dimensions,
-        EI: dimensions.EI,
-        SN: dimensions.SN,
-        TF: dimensions.TF,
-        JP: dimensions.JP
+        scores: scores,
+        minMax: minMax,
+        mbti: mbtiType
     };
 }
 
@@ -325,7 +308,6 @@ function calculateResults() {
 function determineAnimal() {
     const mbti = results.mbti;
 
-    // MBTI 16种类型映射到动物
     const mbtiToAnimal = {
         'INTJ': 'snowLeopard',
         'INFP': 'tibetanAntelope',
@@ -353,21 +335,21 @@ function showResult() {
     showPage('result');
     const animal = determineAnimal();
 
-    // 性能优化：使用 requestAnimationFrame 批量更新 DOM
     requestAnimationFrame(() => {
-        // 更新动物信息
         const avatarEl = document.getElementById('animalAvatar');
         avatarEl.textContent = animal.emoji;
-        avatarEl.className = `animal-avatar ${animal.colorClass}`;
+        avatarEl.className = \`animal-avatar \${animal.colorClass}\`;
 
         document.getElementById('animalName').textContent = animal.name;
         document.getElementById('animalTagline').textContent = animal.tagline;
+        // 显示OCEAN对应出的类型组合
+        document.getElementById('animalType').textContent = animal.mbti;
+        
         document.getElementById('resultDescription').textContent = animal.description;
         document.getElementById('animalBackground').textContent = animal.background;
-        document.getElementById('matchText').textContent = `最佳伙伴：${animal.match}`;
+        document.getElementById('matchText').textContent = \`最佳伙伴：\${animal.match}\`;
         document.getElementById('tipsText').textContent = animal.tips;
 
-        // 更新图片
         const imgEl = document.getElementById('animalImage');
         if (imgEl && animal.image) {
             imgEl.src = animal.image;
@@ -375,7 +357,6 @@ function showResult() {
             imgEl.style.display = 'block';
         }
 
-        // 性能优化：使用 DocumentFragment 批量添加特质标签
         const traitsContainer = document.getElementById('traits');
         const fragment = document.createDocumentFragment();
 
@@ -386,35 +367,36 @@ function showResult() {
             fragment.appendChild(traitEl);
         });
 
+        // 加上一个N维度的描述
+        const nTag = document.createElement('span');
+        nTag.className = 'trait-tag';
+        nTag.textContent = results.scores.N > 0 ? '高敏感' : '情绪稳定';
+        fragment.appendChild(nTag);
+
         traitsContainer.innerHTML = '';
         traitsContainer.appendChild(fragment);
 
-        // 绘制 MBTI 雷达图
-        drawMBTIRadarChart();
+        document.querySelector('.radar-labels').style.display = 'block';
+        drawOceanRadarChart();
     });
 
     triggerHapticFeedback('success');
 }
 
 // ========================================
-// MBTI 雷达图绘制
+// OCEAN 雷达图绘制 (五边形)
 // ========================================
-
-let cachedCanvasSetup = null;
 
 function setupCanvas(canvas) {
     const container = canvas.parentElement;
     const containerWidth = container.clientWidth;
-
     const displaySize = Math.min(containerWidth, 400);
-
     const dpr = window.devicePixelRatio || 1;
 
     canvas.width = displaySize * dpr;
     canvas.height = displaySize * dpr;
-
-    canvas.style.width = `${displaySize}px`;
-    canvas.style.height = `${displaySize}px`;
+    canvas.style.width = \`\${displaySize}px\`;
+    canvas.style.height = \`\${displaySize}px\`;
 
     const ctx = canvas.getContext('2d');
     ctx.scale(dpr, dpr);
@@ -427,7 +409,7 @@ function setupCanvas(canvas) {
     return { ctx, canvas, centerX, centerY, radius, displaySize, dpr };
 }
 
-function drawMBTIRadarChart() {
+function drawOceanRadarChart() {
     const canvas = document.getElementById('radarChart');
     if (!canvas) return;
 
@@ -436,35 +418,39 @@ function drawMBTIRadarChart() {
 
         ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-        // 绘制网格和轴线（4个维度）
-        drawMBTIGrid(ctx, centerX, centerY, radius);
-
-        // 计算数据（将 MBTI 各维度转化为雷达图数据）
-        const data = calculateMBTIRadarData();
-        drawMBTIData(ctx, centerX, centerY, radius, data);
+        drawOceanGrid(ctx, centerX, centerY, radius);
+        const data = calculateOceanRadarData();
+        drawOceanData(ctx, centerX, centerY, radius, data);
     });
 }
 
-function calculateMBTIRadarData() {
-    const { EI, SN, TF, JP } = results;
+function calculateOceanRadarData() {
+    const { scores, minMax } = results;
+    
+    // 归一化到 0.2 ~ 1.0 (避免得分太低缩在圆心不好看)
+    const normalize = (val, min, max) => {
+        if (max === min) return 0.5;
+        const ratio = (val - min) / (max - min);
+        return 0.2 + ratio * 0.8;
+    };
 
-    // 每个维度计算正向外向得分比例（0-1）
-    const eiScore = EI.E / (EI.E + EI.I) || 0.5;  // E倾向
-    const snScore = SN.S / (SN.S + SN.N) || 0.5;  // S倾向
-    const tfScore = TF.T / (TF.T + TF.F) || 0.5;  // T倾向
-    const jpScore = JP.J / (JP.J + JP.P) || 0.5;  // J倾向
-
-    return [eiScore, snScore, tfScore, jpScore];
+    return [
+        normalize(scores.O, minMax.O.min, minMax.O.max),
+        normalize(scores.C, minMax.C.min, minMax.C.max),
+        normalize(scores.E, minMax.E.min, minMax.E.max),
+        normalize(scores.A, minMax.A.min, minMax.A.max),
+        normalize(scores.N, minMax.N.min, minMax.N.max)
+    ];
 }
 
-function drawMBTIGrid(ctx, centerX, centerY, radius) {
-    const sides = 4; // MBTI 四维度
+function drawOceanGrid(ctx, centerX, centerY, radius) {
+    const sides = 5; // OCEAN 五维度
     const angleStep = (Math.PI * 2) / sides;
 
     const gridLineWidth = Math.max(1, radius * 0.01);
     const axisLineWidth = Math.max(1, radius * 0.015);
 
-    // 绘制网格线
+    // 网格线
     ctx.beginPath();
     ctx.strokeStyle = '#e8dcc4';
     ctx.lineWidth = gridLineWidth;
@@ -476,16 +462,13 @@ function drawMBTIGrid(ctx, centerX, centerY, radius) {
             const x = centerX + Math.cos(angle) * r;
             const y = centerY + Math.sin(angle) * r;
 
-            if (j === 0) {
-                ctx.moveTo(x, y);
-            } else {
-                ctx.lineTo(x, y);
-            }
+            if (j === 0) ctx.moveTo(x, y);
+            else ctx.lineTo(x, y);
         }
     }
     ctx.stroke();
 
-    // 绘制轴线
+    // 轴线
     ctx.beginPath();
     ctx.strokeStyle = '#c4a574';
     ctx.lineWidth = axisLineWidth;
@@ -500,29 +483,36 @@ function drawMBTIGrid(ctx, centerX, centerY, radius) {
     }
     ctx.stroke();
 
-    // 绘制标签
+    // 标签
     ctx.fillStyle = '#5a3e28';
-    ctx.font = `${Math.max(12, radius * 0.08)}px sans-serif`;
+    ctx.font = \`\${Math.max(12, radius * 0.08)}px sans-serif\`;
     ctx.textAlign = 'center';
     ctx.textBaseline = 'middle';
 
-    const labels = ['外向性(E)', '感觉性(S)', '思考性(T)', '判断性(J)'];
+    const labels = ['开放性(O)', '尽责性(C)', '外向性(E)', '宜人性(A)', '神经质(N)'];
+    // DOM 中的 div.radar-labels 仅仅是为了保留文字或给屏幕阅读器，我们用canvas直接画出来也可以
+    // 这里把 div.radar-labels 隐藏了，所以全靠canvas画
     for (let i = 0; i < sides; i++) {
         const angle = i * angleStep - Math.PI / 2;
         const x = centerX + Math.cos(angle) * (radius + 20);
         const y = centerY + Math.sin(angle) * (radius + 20);
+        
+        // 微调一些边缘文字的对齐防止被截断
+        if (Math.cos(angle) > 0.1) ctx.textAlign = 'left';
+        else if (Math.cos(angle) < -0.1) ctx.textAlign = 'right';
+        else ctx.textAlign = 'center';
+
         ctx.fillText(labels[i], x, y);
     }
 }
 
-function drawMBTIData(ctx, centerX, centerY, radius, data) {
-    const sides = 4;
+function drawOceanData(ctx, centerX, centerY, radius, data) {
+    const sides = 5;
     const angleStep = (Math.PI * 2) / sides;
 
     const dataLineWidth = Math.max(2, radius * 0.03);
     const pointRadius = Math.max(4, radius * 0.05);
 
-    // 绘制数据区域
     ctx.beginPath();
     ctx.fillStyle = 'rgba(45, 90, 135, 0.3)';
     ctx.strokeStyle = 'rgba(45, 90, 135, 0.8)';
@@ -535,17 +525,13 @@ function drawMBTIData(ctx, centerX, centerY, radius, data) {
         const x = centerX + Math.cos(angle) * r;
         const y = centerY + Math.sin(angle) * r;
 
-        if (i === 0) {
-            ctx.moveTo(x, y);
-        } else {
-            ctx.lineTo(x, y);
-        }
+        if (i === 0) ctx.moveTo(x, y);
+        else ctx.lineTo(x, y);
     }
     ctx.closePath();
     ctx.fill();
     ctx.stroke();
 
-    // 绘制数据点
     ctx.fillStyle = '#2d5a87';
     for (let i = 0; i < sides; i++) {
         const angle = i * angleStep - Math.PI / 2;
@@ -566,7 +552,7 @@ function drawMBTIData(ctx, centerX, centerY, radius, data) {
 
 function shareResult() {
     const animal = determineAnimal();
-    const shareText = `我是${animal.name}（${animal.mbti}）！我的高原图腾是「${animal.tagline}」。来测试你的动物性格吧！`;
+    const shareText = \`我是\${animal.name}！我的大五人格倾向图腾是「\${animal.tagline}」。来测试你的高原动物原型吧！\`;
     triggerHapticFeedback('success');
 
     if (navigator.share) {
@@ -597,7 +583,7 @@ function handleResize() {
     resizeTimeout = setTimeout(() => {
         const resultPage = document.getElementById('result');
         if (resultPage && resultPage.classList.contains('active')) {
-            drawMBTIRadarChart();
+            drawOceanRadarChart();
         }
     }, 250);
 }
