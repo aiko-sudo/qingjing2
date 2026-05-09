@@ -125,6 +125,26 @@ document.addEventListener('DOMContentLoaded', () => {
     setupLazyLoading();
     setupOptionDelegation();
 
+    // 绑定按钮事件以支持严格的 CSP (替代 inline onclick)
+    const startTestBtn = document.getElementById('startTestBtn');
+    if (startTestBtn) startTestBtn.addEventListener('click', startTest);
+    
+    if (prevBtn) prevBtn.addEventListener('click', prevQuestion);
+    if (nextBtn) nextBtn.addEventListener('click', nextQuestion);
+    
+    const shareBtn = document.getElementById('shareBtn');
+    if (shareBtn) shareBtn.addEventListener('click', shareResult);
+    
+    const restartBtn = document.getElementById('restartBtn');
+    if (restartBtn) restartBtn.addEventListener('click', restartTest);
+
+    const animalImage = document.getElementById('animalImage');
+    if (animalImage) {
+        animalImage.addEventListener('error', function() {
+            this.style.display = 'none';
+        });
+    }
+
     addTouchListeners('.btn-primary');
     addTouchListeners('.btn-secondary');
 

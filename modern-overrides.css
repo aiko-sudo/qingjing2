@@ -46,26 +46,26 @@
 
 .aurora-1 {
     background: radial-gradient(circle, var(--aurora-1), transparent 60%);
-    top: -50%;
-    left: -50%;
+    top: -20vh;
+    left: -20vw;
     animation-duration: 25s;
 }
 
 .aurora-2 {
     background: radial-gradient(circle, var(--aurora-2), transparent 60%);
-    bottom: -50%;
-    right: -50%;
+    bottom: -20vh;
+    right: -20vw;
     animation-duration: 22s;
     animation-delay: -5s;
 }
 
 .aurora-3 {
     background: radial-gradient(circle, var(--neon-blue), transparent 60%);
-    top: 20%;
-    left: 20%;
+    top: -25vh;
+    left: -25vw;
     animation-duration: 28s;
     animation-delay: -10s;
-    opacity: 0.4;
+    opacity: 0.5;
 }
 
 .stars {

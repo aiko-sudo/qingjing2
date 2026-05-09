@@ -55,7 +55,7 @@
                             <span>大五人格雷达图</span>
                         </div>
                     </div>
-                    <button class="btn-primary" onclick="startTest()" role="button" tabindex="0" aria-label="开始测试">
+                    <button id="startTestBtn" class="btn-primary" role="button" tabindex="0" aria-label="开始测试">
                         开始测试
                         <span class="btn-arrow">→</span>
                     </button>
@@ -85,10 +85,10 @@
             </div>
 
             <div class="navigation">
-                <button class="btn-secondary" id="prevBtn" onclick="prevQuestion()" role="button" tabindex="0" aria-label="上一题">
+                <button class="btn-secondary" id="prevBtn" role="button" tabindex="0" aria-label="上一题">
                     ← 上一题
                 </button>
-                <button class="btn-secondary" id="nextBtn" onclick="nextQuestion()" disabled role="button" tabindex="0" aria-label="下一题">
+                <button class="btn-secondary" id="nextBtn" disabled role="button" tabindex="0" aria-label="下一题">
                     下一题 →
                 </button>
             </div>
@@ -104,7 +104,7 @@
                 <div class="result-card">
                     <!-- 动物图片 -->
                     <div class="animal-image-container">
-                        <img id="animalImage" class="animal-image" src="" alt="" style="display:none;" onerror="this.style.display='none'">
+                        <img id="animalImage" class="animal-image" src="" alt="" style="display:none;">
                     </div>
                     
                     <div class="animal-avatar" id="animalAvatar"></div>
@@ -157,10 +157,10 @@
                     </div>
 
                     <div class="action-buttons">
-                        <button class="btn-primary" onclick="shareResult()" role="button" tabindex="0" aria-label="分享结果">
+                        <button id="shareBtn" class="btn-primary" role="button" tabindex="0" aria-label="分享结果">
                             🔗 分享结果
                         </button>
-                        <button class="btn-secondary" onclick="restartTest()" role="button" tabindex="0" aria-label="重新测试">
+                        <button id="restartBtn" class="btn-secondary" role="button" tabindex="0" aria-label="重新测试">
                             🔄 重新测试
                         </button>
                     </div>
