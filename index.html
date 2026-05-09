@@ -104,7 +104,7 @@
                 <div class="result-card">
                     <!-- 动物图片 -->
                     <div class="animal-image-container">
-                        <img id="animalImage" class="animal-image" src="" alt="" style="display:none;">
+                        <img id="animalImage" class="animal-image" src="" alt="" style="display:none;" onerror="this.style.display='none'">
                     </div>
                     
                     <div class="animal-avatar" id="animalAvatar"></div>
@@ -134,6 +134,11 @@
                     <div class="description-container">
                         <h4>性格解读</h4>
                         <p class="description-text" id="resultDescription"></p>
+                    </div>
+
+                    <div class="strategy-container">
+                        <h4>生存策略 (PDP)</h4>
+                        <p class="strategy-text" id="animalStrategy"></p>
                     </div>
 
                     <div class="background-container">

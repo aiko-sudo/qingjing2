@@ -264,14 +264,16 @@ function calculateResults() {
         const q = questions[i];
         const selectedScores = q.options[answers[i]].scores;
         
-        let localMin = {O:0, C:0, E:0, A:0, N:0};
-        let localMax = {O:0, C:0, E:0, A:0, N:0};
+        let localMin = {O: Infinity, C: Infinity, E: Infinity, A: Infinity, N: Infinity};
+        let localMax = {O: -Infinity, C: -Infinity, E: -Infinity, A: -Infinity, N: -Infinity};
 
         q.options.forEach(opt => {
-            for(const dim in opt.scores) {
-                if(opt.scores[dim] < localMin[dim]) localMin[dim] = opt.scores[dim];
-                if(opt.scores[dim] > localMax[dim]) localMax[dim] = opt.scores[dim];
-            }
+            const dims = ['O', 'C', 'E', 'A', 'N'];
+            dims.forEach(dim => {
+                const val = opt.scores[dim] || 0;
+                if(val < localMin[dim]) localMin[dim] = val;
+                if(val > localMax[dim]) localMax[dim] = val;
+            });
         });
 
         for(const dim in scores) {
@@ -346,6 +348,7 @@ function showResult() {
         document.getElementById('animalType').textContent = animal.mbti;
         
         document.getElementById('resultDescription').textContent = animal.description;
+        document.getElementById('animalStrategy').textContent = animal.strategy;
         document.getElementById('animalBackground').textContent = animal.background;
         document.getElementById('matchText').textContent = \`最佳伙伴：\${animal.match}\`;
         document.getElementById('tipsText').textContent = animal.tips;
