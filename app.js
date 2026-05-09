@@ -111,7 +111,7 @@ let optionsContainer, progressBar, progressText, prevBtn, nextBtn, questionText,
 // 初始化
 // ========================================
 
-document.addEventListener('DOMContentLoaded', () => {
+function initApp() {
     optionsContainer = document.getElementById('options');
     progressBar = document.getElementById('progress');
     progressText = document.getElementById('progressText');
@@ -150,7 +150,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
     window.addEventListener('resize', handleResize);
     window.addEventListener('orientationchange', handleResize);
-});
+}
+
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initApp);
+} else {
+    initApp();
+}
 
 // ========================================
 // 页面导航

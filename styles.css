@@ -102,8 +102,6 @@ body {
     line-height: 1.6;
     /* 防止iOS橡皮筋效果 */
     overscroll-behavior-y: none;
-    /* 性能优化：减少重绘范围 */
-    contain: layout style paint;
     /* 隐藏滚动条（如需要） */
     scrollbar-width: none;
     -ms-overflow-style: none;
