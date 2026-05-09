@@ -66,6 +66,10 @@
     ======================================== */
 
 /* 全局触摸设置 - 移除默认点击高亮和优化触摸操作 */
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
 * {
     /* 移除移动端默认的蓝色点击高亮效果 */
     -webkit-tap-highlight-color: transparent;
@@ -99,14 +103,12 @@ body {
     /* 性能优化：优先使用系统字体，最快渲染速度，font-display: swap */
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
     background: linear-gradient(135deg, var(--bg-gradient-start) 0%, var(--bg-gradient-end) 100%);
-    min-height: 100vh;
+    height: 100vh;
     color: var(--text-primary);
     line-height: 1.6;
     /* 防止iOS橡皮筋效果 */
     overscroll-behavior-y: none;
-    /* 隐藏滚动条（如需要） */
-    scrollbar-width: none;
-    -ms-overflow-style: none;
+    overflow: hidden;
 }
 
 body::-webkit-scrollbar {
@@ -117,8 +119,9 @@ body::-webkit-scrollbar {
 .container {
     max-width: 800px;
     margin: 0 auto;
-    min-height: 100vh;
+    height: 100vh;
     position: relative;
+    overflow: hidden;
 }
 
 /* 页面切换 - 性能优化：使用GPU加速的transform属性 */
@@ -127,7 +130,7 @@ body::-webkit-scrollbar {
     opacity: 0;
     transform: translateY(20px) translateZ(0);
     transition: opacity var(--transition-slow), transform var(--transition-slow);
-    min-height: 100vh;
+    height: 100vh;
     padding: 20px;
     will-change: opacity, transform;
     contain: layout style paint;
@@ -138,6 +141,8 @@ body::-webkit-scrollbar {
     flex-direction: column;
     opacity: 1;
     transform: translateY(0) translateZ(0);
+    overflow-y: auto;
+    overflow-x: hidden;
 }
 
 /* ========================================
@@ -149,9 +154,9 @@ body::-webkit-scrollbar {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 100vh;
+    height: 100%;
     text-align: center;
-    padding: 40px 20px;
+    padding: 20px;
     position: relative;
 }
 

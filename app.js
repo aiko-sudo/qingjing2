@@ -366,7 +366,7 @@ function showResult() {
     requestAnimationFrame(() => {
         const avatarEl = document.getElementById('animalAvatar');
         avatarEl.textContent = animal.emoji;
-        avatarEl.className = \`animal-avatar \${animal.colorClass}\`;
+        avatarEl.className = `animal-avatar ${animal.colorClass}`;
 
         document.getElementById('animalName').textContent = animal.name;
         document.getElementById('animalTagline').textContent = animal.tagline;
@@ -376,7 +376,7 @@ function showResult() {
         document.getElementById('resultDescription').textContent = animal.description;
         document.getElementById('animalStrategy').textContent = animal.strategy;
         document.getElementById('animalBackground').textContent = animal.background;
-        document.getElementById('matchText').textContent = \`最佳伙伴：\${animal.match}\`;
+        document.getElementById('matchText').textContent = `最佳伙伴：${animal.match}`;
         document.getElementById('tipsText').textContent = animal.tips;
 
         const imgEl = document.getElementById('animalImage');
@@ -424,8 +424,8 @@ function setupCanvas(canvas) {
 
     canvas.width = displaySize * dpr;
     canvas.height = displaySize * dpr;
-    canvas.style.width = \`\${displaySize}px\`;
-    canvas.style.height = \`\${displaySize}px\`;
+    canvas.style.width = `${displaySize}px`;
+    canvas.style.height = `${displaySize}px`;
 
     const ctx = canvas.getContext('2d');
     ctx.scale(dpr, dpr);
@@ -514,7 +514,7 @@ function drawOceanGrid(ctx, centerX, centerY, radius) {
 
     // 标签
     ctx.fillStyle = '#5a3e28';
-    ctx.font = \`\${Math.max(12, radius * 0.08)}px sans-serif\`;
+    ctx.font = `${Math.max(12, radius * 0.08)}px sans-serif`;
     ctx.textAlign = 'center';
     ctx.textBaseline = 'middle';
 
@@ -581,7 +581,7 @@ function drawOceanData(ctx, centerX, centerY, radius, data) {
 
 function shareResult() {
     const animal = determineAnimal();
-    const shareText = \`我是\${animal.name}！我的大五人格倾向图腾是「\${animal.tagline}」。来测试你的高原动物原型吧！\`;
+    const shareText = `我是${animal.name}！我的大五人格倾向图腾是「${animal.tagline}」。来测试你的高原动物原型吧！`;
     triggerHapticFeedback('success');
 
     if (navigator.share) {
