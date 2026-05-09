@@ -455,7 +455,8 @@ function setupCanvas(canvas) {
 
     const centerX = displaySize / 2;
     const centerY = displaySize / 2;
-    const padding = displaySize * 0.15;
+    // 增加 padding 比例 (从 0.15 改为 0.22) 从而缩小雷达图本体，留出更多边缘空间给文字标签，防止截断
+    const padding = displaySize * 0.22;
     const radius = (displaySize / 2) - padding;
 
     return { ctx, canvas, centerX, centerY, radius, displaySize, dpr };
@@ -673,26 +674,74 @@ function setupLazyLoading() {
 // 徽章下载功能
 // ========================================
 window.saveBadge = function() {
-    const resultCard = document.querySelector('.result-card');
     const actionButtons = document.querySelector('.action-buttons');
     if (actionButtons) actionButtons.style.display = 'none';
+
+    // 创建临时的圆形徽章 DOM
+    const badge = document.createElement('div');
+    badge.id = 'tempBadgeForExport';
     
-    html2canvas(resultCard, {
-        scale: 2,
-        backgroundColor: '#f8f9fa',
-        useCORS: true,
-        logging: false
-    }).then(canvas => {
-        if (actionButtons) actionButtons.style.display = 'flex';
-        const link = document.createElement('a');
-        const animalName = document.getElementById('animalName').textContent || '测试结果';
-        link.download = `三江源动物图腾-${animalName}.png`;
-        link.href = canvas.toDataURL('image/png');
-        link.click();
-        if(typeof triggerHapticFeedback === 'function') triggerHapticFeedback('success');
-    }).catch(err => {
-        if (actionButtons) actionButtons.style.display = 'flex';
-        console.error('生成徽章失败:', err);
-        alert('生成徽章失败，请稍后重试。');
+    // 获取动物信息
+    const avatar = document.getElementById('animalAvatar').textContent || '🦊';
+    const name = document.getElementById('animalName').textContent || '测试结果';
+    const type = document.getElementById('animalType').textContent || '';
+
+    // 设置圆形徽章样式
+    Object.assign(badge.style, {
+        width: '500px',
+        height: '500px',
+        borderRadius: '50%',
+        background: 'linear-gradient(135deg, #1e3c72 0%, #2a5298 100%)', // 深空蓝渐变
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        position: 'fixed',
+        left: '-9999px',
+        top: '0',
+        zIndex: '-1',
+        color: '#ffffff',
+        fontFamily: '"PingFang SC", "Microsoft YaHei", sans-serif',
+        textAlign: 'center',
+        boxSizing: 'border-box',
+        padding: '20px',
+        border: '8px solid rgba(255, 255, 255, 0.2)',
+        boxShadow: 'inset 0 0 40px rgba(0,0,0,0.5)'
     });
+    
+    badge.innerHTML = `
+        <div style="font-size: 180px; line-height: 1; filter: drop-shadow(0 10px 20px rgba(0,0,0,0.4)); margin-bottom: 20px;">${avatar}</div>
+        <div style="font-size: 48px; font-weight: bold; margin-bottom: 12px; text-shadow: 0 4px 12px rgba(0,0,0,0.5); letter-spacing: 2px;">${name}</div>
+        <div style="font-size: 22px; opacity: 0.9; margin-bottom: 10px; background: rgba(0,0,0,0.2); padding: 4px 16px; border-radius: 20px;">${type}</div>
+        <div style="font-size: 16px; opacity: 0.6; letter-spacing: 4px; margin-top: 10px;">三江源动物图腾</div>
+        
+        <!-- 装饰圈 -->
+        <div style="position: absolute; top: 10px; left: 10px; right: 10px; bottom: 10px; border: 1px dashed rgba(255,255,255,0.3); border-radius: 50%; pointer-events: none;"></div>
+    `;
+    
+    document.body.appendChild(badge);
+    
+    // 稍微延迟确保渲染完成
+    setTimeout(() => {
+        html2canvas(badge, {
+            scale: 2,
+            backgroundColor: null, // 透明背景，保留圆形
+            useCORS: true,
+            logging: false
+        }).then(canvas => {
+            if (actionButtons) actionButtons.style.display = 'flex';
+            const link = document.createElement('a');
+            link.download = `三江源图腾徽章-${name}.png`;
+            link.href = canvas.toDataURL('image/png');
+            link.click();
+            
+            document.body.removeChild(badge); // 清理DOM
+            if(typeof triggerHapticFeedback === 'function') triggerHapticFeedback('success');
+        }).catch(err => {
+            if (actionButtons) actionButtons.style.display = 'flex';
+            document.body.removeChild(badge);
+            console.error('生成徽章失败:', err);
+            alert('生成徽章失败，请稍后重试。');
+        });
+    }, 100);
 };

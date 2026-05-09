@@ -352,21 +352,39 @@ body {
    ======================================== */
 
 /* 雷达图标签单行显示 */
+/* 雷达图标签单行显示 */
 .radar-labels {
+    display: flex !important;
     flex-wrap: nowrap !important;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    justify-content: flex-start !important;
-    padding-bottom: 8px;
-    white-space: nowrap;
-    /* 隐藏滚动条 */
-    scrollbar-width: none;
-}
-.radar-labels::-webkit-scrollbar {
-    display: none;
+    overflow: visible !important; /* 取消滚动，允许文字溢出显示，防止被截断 */
+    justify-content: space-between !important;
+    width: 110% !important; /* 放宽 10% 给 12px 字体留足空间 */
+    margin: 0 0 0 -5% !important; /* 向左偏移 5% 保持绝对居中 */
+    padding: 0 !important;
 }
 .radar-labels span {
-    flex-shrink: 0;
+    flex: 0 0 auto;
+    text-align: center;
+    font-size: 12px !important; /* 和图表上的字一样大 */
+    padding: 0 !important;
+    white-space: nowrap;
+    background: transparent !important;
+}
+
+/* 动物类型标签 (如 ENTJ) 金色背景 */
+#animalType {
+    display: inline-block;
+    background: linear-gradient(135deg, #d4af37 0%, #ffdf73 50%, #d4af37 100%);
+    color: #fff;
+    font-weight: bold;
+    border-radius: 50px;
+    padding: 6px 16px;
+    font-size: 16px;
+    margin-top: 12px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 12px rgba(212, 175, 55, 0.4);
+    letter-spacing: 1px;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.2);
 }
 
 /* 解读区域精美圆角方框 */
@@ -441,6 +459,11 @@ body {
     justify-content: center !important;
     gap: 20px !important;
     margin-top: 30px !important;
+}
+
+/* 按钮居中优化 */
+.btn-primary, .btn-secondary {
+    justify-content: center !important;
 }
 
 .navigation .btn-secondary {
