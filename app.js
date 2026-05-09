@@ -114,7 +114,6 @@ let optionsContainer, progressBar, progressText, prevBtn, nextBtn, questionText,
 function initApp() {
     optionsContainer = document.getElementById('options');
     progressBar = document.getElementById('progress');
-    progressText = document.getElementById('progressText');
     prevBtn = document.getElementById('prevBtn');
     nextBtn = document.getElementById('nextBtn');
     questionText = document.getElementById('questionText');
@@ -212,9 +211,7 @@ function renderQuestion() {
         optionsContainer.innerHTML = '';
         optionsContainer.appendChild(fragment);
 
-        const progressPercent = ((currentQuestion + 1) / questions.length) * 100;
-        progressBar.style.width = `${progressPercent}%`;
-        progressText.textContent = `第 ${currentQuestion + 1} 题 / 共 ${questions.length} 题`;
+        updateProgressBar();
 
         prevBtn.disabled = currentQuestion === 0;
         nextBtn.disabled = answers[currentQuestion] === -1;
@@ -243,6 +240,7 @@ function selectOption(index) {
     });
 
     nextBtn.disabled = false;
+    updateProgressBar();
 
     if (currentQuestion === questions.length - 1) {
         nextBtn.textContent = '查看结果 →';
@@ -266,6 +264,31 @@ function prevQuestion() {
         currentQuestion--;
         renderQuestion();
     }
+}
+
+// ========================================
+// 进度条渲染
+// ========================================
+
+function updateProgressBar() {
+    if (!progressBar) return;
+    
+    const fragment = document.createDocumentFragment();
+    for (let i = 0; i < questions.length; i++) {
+        const segment = document.createElement('div');
+        segment.className = 'progress-segment';
+        
+        if (answers[i] !== -1) {
+            segment.classList.add('completed');
+        } else if (i === currentQuestion) {
+            segment.classList.add('current');
+        }
+        
+        fragment.appendChild(segment);
+    }
+    
+    progressBar.innerHTML = '';
+    progressBar.appendChild(fragment);
 }
 
 // ========================================

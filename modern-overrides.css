@@ -218,20 +218,33 @@ body {
     border-radius: 6px 0 0 6px;
 }
 
-/* 进度条 */
+/* 进度条 (30格分段) */
 .progress-bar {
-    background: rgba(255, 255, 255, 0.3);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    display: flex;
+    gap: 4px;
+    height: 8px;
+    overflow: visible;
 }
 
-.progress-fill {
-    background: linear-gradient(90deg, var(--aurora-1), var(--neon-blue));
-    box-shadow: 0 0 10px rgba(0, 242, 254, 0.5);
+.progress-segment {
+    flex: 1;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 4px;
+    transition: background-color 0.3s, box-shadow 0.3s;
 }
-.progress-text {
-    color: #fff;
-    text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+
+.progress-segment.completed {
+    background: #00e676; /* 答完的是绿色 */
+    box-shadow: 0 0 8px rgba(0, 230, 118, 0.6);
+}
+
+.progress-segment.current {
+    background: var(--neon-blue);
+    box-shadow: 0 0 8px rgba(0, 242, 254, 0.6);
 }
 
 /* ========================================
