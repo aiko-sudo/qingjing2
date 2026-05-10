@@ -252,10 +252,19 @@ body {
     background: rgba(0, 0, 0, 0.25);
     border-radius: 16px;
     padding: 8px 16px !important;
-    margin-top: 30px;
+    margin-top: 10px;
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
     border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* 答题页顶部紧凑 */
+#test.page.active {
+    padding-top: 8px;
+}
+
+.test-header {
+    padding: 6px 0 !important;
 }
 
 /* ========================================
