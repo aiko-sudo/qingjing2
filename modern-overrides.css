@@ -492,6 +492,8 @@ body {
     justify-content: center !important;
     gap: 20px !important;
     margin-top: 0 !important;
+    padding-top: 0 !important; /* 原本为 32px，减去 32px 向上移动 */
+    padding-bottom: 20px !important;
 }
 
 /* 按钮居中优化 */
