@@ -1128,15 +1128,15 @@ body::-webkit-scrollbar {
 
 /* 动物头像 emoji 样式优化 */
 .animal-avatar {
-    font-size: 96px;
+    font-size: 86px;
     text-align: center;
-    margin: 20px 0;
+    margin: 20px auto;
     display: block;
     filter: drop-shadow(0 4px 8px rgba(0,0,0,0.1));
 }
 
 @media (max-width: 768px) {
     .animal-avatar {
-        font-size: 72px;
+        font-size: 62px;
     }
 }
