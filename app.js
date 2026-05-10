@@ -164,8 +164,11 @@ if (document.readyState === 'loading') {
 function showPage(pageId) {
     document.querySelectorAll('.page').forEach(page => {
         page.classList.remove('active');
+        page.scrollTop = 0; // 重置滚动位置
     });
-    document.getElementById(pageId).classList.add('active');
+    const targetPage = document.getElementById(pageId);
+    targetPage.classList.add('active');
+    targetPage.scrollTop = 0; // 确保新页面从顶部开始
 }
 
 function startTest() {
