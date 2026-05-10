@@ -265,8 +265,8 @@ body {
 /* 结果页居中修正 */
 #result.page.active {
     align-items: center;
-    padding-left: 4px;
-    padding-right: 4px;
+    padding-left: 2px;
+    padding-right: 2px;
 }
 
 .result-container {
