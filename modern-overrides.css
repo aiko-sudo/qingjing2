@@ -491,7 +491,7 @@ body {
     flex-direction: row !important; /* 强制在一行显示，覆盖 styles.css 中移动端的 column 设置 */
     justify-content: center !important;
     gap: 20px !important;
-    margin-top: 30px !important;
+    margin-top: 0 !important;
 }
 
 /* 按钮居中优化 */
