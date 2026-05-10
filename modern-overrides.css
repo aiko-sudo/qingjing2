@@ -224,16 +224,16 @@ body {
     border: none;
     box-shadow: none;
     display: flex;
-    gap: 4px;
-    height: 8px;
+    gap: 3px;
+    height: 6px;
     overflow: visible;
 }
 
 .progress-segment {
     flex: 1;
     height: 100%;
-    background: rgba(255, 255, 255, 0.2);
-    border-radius: 4px;
+    background: rgba(255, 255, 255, 0.35);
+    border-radius: 5px;
     transition: background-color 0.3s, box-shadow 0.3s;
 }
 
@@ -245,6 +245,17 @@ body {
 .progress-segment.current {
     background: var(--neon-blue);
     box-shadow: 0 0 8px rgba(0, 242, 254, 0.6);
+}
+
+/* 进度条容器背景增强 */
+.progress-container {
+    background: rgba(0, 0, 0, 0.25);
+    border-radius: 16px;
+    padding: 8px 16px !important;
+    margin-top: 15px;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 /* ========================================
