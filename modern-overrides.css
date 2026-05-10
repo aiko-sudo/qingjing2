@@ -497,3 +497,131 @@ body {
     border-color: #cbd5e1;
     color: #94a3b8;
 }
+
+/* ========================================
+   首页全屏适配 & 特性方块等宽并排
+   ======================================== */
+
+/* 首页不需要额外 padding，全部留给 hero 自身居中 */
+#home.page.active {
+    padding: 0;
+    overflow: hidden; /* 禁止首页滚动 */
+}
+
+/* hero 紧凑居中，避免溢出 */
+.hero {
+    padding: 16px 20px;
+    justify-content: center;
+    height: 100vh;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+.hero-content {
+    justify-content: center;
+    gap: 0; /* 用各元素自身 margin 控制间距 */
+    max-height: 100%;
+}
+
+/* 缩小 logo 上方的视觉空间 */
+.logo {
+    margin-bottom: 20px;
+}
+
+.hero h1 {
+    margin-top: 0;
+    margin-bottom: 10px;
+}
+
+.tagline {
+    margin-bottom: 16px;
+}
+
+.description {
+    margin-bottom: 24px;
+}
+
+/* 三个特性方块：始终并排 + 等宽 */
+.features {
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    gap: 16px !important;
+    margin-bottom: 28px !important;
+    width: 100%;
+    justify-content: center !important;
+}
+
+.feature {
+    flex: 1 1 0 !important;   /* 等宽分配 */
+    min-width: 0 !important;  /* 允许缩小 */
+    max-width: 180px;
+    padding: 16px 12px !important;
+}
+
+.disclaimer {
+    margin-top: 16px;
+}
+
+/* 小屏幕进一步压缩 */
+@media (max-width: 480px) {
+    .hero {
+        padding: 12px 12px;
+    }
+
+    .logo {
+        margin-bottom: 12px;
+    }
+
+    .logo-icon {
+        font-size: 32px !important;
+    }
+
+    .logo-text {
+        font-size: 20px !important;
+    }
+
+    .hero h1 {
+        font-size: 24px !important;
+        margin-bottom: 6px;
+    }
+
+    .tagline {
+        font-size: 14px !important;
+        margin-bottom: 10px;
+    }
+
+    .description {
+        font-size: 13px !important;
+        margin-bottom: 16px;
+        line-height: 1.5;
+    }
+
+    .features {
+        gap: 8px !important;
+        margin-bottom: 18px !important;
+    }
+
+    .feature {
+        padding: 10px 8px !important;
+        border-radius: 16px !important;
+    }
+
+    .feature-icon {
+        font-size: 22px !important;
+    }
+
+    .feature span:last-child {
+        font-size: 11px !important;
+    }
+
+    .btn-primary {
+        padding: 14px 28px !important;
+        font-size: 15px !important;
+        margin-bottom: 8px;
+    }
+
+    .disclaimer {
+        font-size: 10px !important;
+        margin-top: 8px;
+    }
+}

@@ -971,7 +971,6 @@ body::-webkit-scrollbar {
     }
 
     .features {
-        flex-direction: column;
         gap: 8px;
         margin-bottom: 20px;
     }
