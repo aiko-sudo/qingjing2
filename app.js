@@ -178,6 +178,14 @@ function startTest() {
     showPage('test');
     renderQuestion();
     triggerHapticFeedback('success');
+    
+    // 请求全屏显示
+    const docElm = document.documentElement;
+    if (docElm.requestFullscreen) {
+        docElm.requestFullscreen().catch(err => console.log(err));
+    } else if (docElm.webkitRequestFullScreen) { // Safari
+        docElm.webkitRequestFullScreen();
+    }
 }
 
 function restartTest() {
